@@ -17,16 +17,15 @@ import nmslib
 import numpy as np
 import pathlib
 import sys
+import os
 project_name = 'faceid-medium'
 project_path = str(pathlib.Path().absolute())
 sys.path.append(project_path)
-print(project_path)
 from searcher import search_nmslib_index
 # from .detector import *
 from keras.models import load_model
 folder_path = str(pathlib.Path().absolute()).split(project_name)[0] + project_name + '/'
 sys.path.append(folder_path)
-import os
 
 
 class DistancesVoting():
@@ -149,10 +148,8 @@ class FaceRecognizer():
         
         # convert into an array of samples
         face_img = img_keras.img_to_array(face_img)
-        # face_array = np.asarray(PIL_image, 'float32')
         samples = np.expand_dims(face_img, axis=0)
         samples = preprocess_input(samples, version=2)
-        # print('samples', samples)
         # perform prediction
         print('samples', samples.shape)
         emb = self.vgg_model.predict(samples)
