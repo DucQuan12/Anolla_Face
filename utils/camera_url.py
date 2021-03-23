@@ -3,6 +3,7 @@ from src.BaseModel.recognizer import FaceRecognizer
 from src.Data_Processing.face_aligner import FaceAligner
 from tensorflow.python.keras.backend import set_session
 from imutils.video import WebcamVideoStream
+import face_recognition
 import configparser
 import numpy as np
 from imutils.video import FPS
@@ -57,7 +58,7 @@ class CameraURL(FACE_DETECT):
                         print('img', frame.shape)
                         aligned_face = FaceAligner.align(frame, bb_og, align_padding)
                         list_face.append(aligned_face)
-        
+
 
         else:
             detector = self.detect_hog()
