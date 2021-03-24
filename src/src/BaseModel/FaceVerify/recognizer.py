@@ -18,14 +18,14 @@ import numpy as np
 import pathlib
 import sys
 import os
-project_name = 'faceid-medium'
-project_path = str(pathlib.Path().absolute())
-sys.path.append(project_path)
+# project_name = 'faceid-medium'
+# project_path = str(pathlib.Path().absolute())
+# sys.path.append(project_path)
 from searcher import search_nmslib_index
 # from .detector import *
 from keras.models import load_model
-folder_path = str(pathlib.Path().absolute()).split(project_name)[0] + project_name + '/'
-sys.path.append(folder_path)
+# folder_path = str(pathlib.Path().absolute()).split(project_name)[0] + project_name + '/'
+# sys.path.append(folder_path)
 
 
 class DistancesVoting():
