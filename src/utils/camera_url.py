@@ -19,7 +19,6 @@ logging.basicConfig(format='%(asctime)s %(levelname)-8s %(message)s',
 
 
 class CameraURL(FACE_DETECT):
-    global list_face = []
 
     def __init__(self):
         camera_url = self.cfg.getint('DEFAULT', 'camera_url')
@@ -27,6 +26,7 @@ class CameraURL(FACE_DETECT):
         _thresh = self.cfg.getint('PARAMETER', 'thresh')
         frame_count = self.cfg.getint('PARAMETER', 'frame_count')
         frame_skip = self.cfg.getint('PARAMETER', 'frame_skip')
+        number_skip = self.cfg.getint('PARAMETER', 'number_skip')
 
     def face_detect(self):
         logging.warning("USE CAMERA:{}".format(self.camera_url))
@@ -34,6 +34,7 @@ class CameraURL(FACE_DETECT):
         cap.start()
         fps = FPS().start()
         while True:
+            list_face = []
             logging.debug("LOAD CAMERA_URL CREATE FRAME")
             _, frame = cap.read()
             frame = imutils.resize(frame, width=640)
@@ -56,9 +57,13 @@ class CameraURL(FACE_DETECT):
                         bb_og[3] = bottom * h_ratio
                         align_padding = 45
                         print('img', frame.shape)
-                        aligned_face = FaceAligner.align(frame, bb_og, align_padding)
-                        list_face.append(aligned_face)
-
+                        try:
+                            aligned_face = FaceAligner.align(frame, bb_og, align_padding)
+                            list_face.append(aligned_face)
+                            if len(list_face) ==:
+                                list_face = []
+                        except:
+                            logging.error("None Image In List")
 
         else:
             detector = self.detect_hog()
