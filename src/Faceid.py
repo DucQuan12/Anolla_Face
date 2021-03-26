@@ -1,7 +1,7 @@
 from __future__ import unicode_literals
 # from src.BaseModel.model_Face import
-from src.BaseModel.detector import FACE_DETECT
-from src.BaseModel.recognizer import FaceRecognizer
+from .src.BaseModel.FaceDetect.detector import FACE_DETECT
+from .src.BaseModel.FaceVerify.recognizer import FaceRecognizer
 from utils.camera_url import CameraURL
 import threading
 import configparser
