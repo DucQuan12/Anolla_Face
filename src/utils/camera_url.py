@@ -1,15 +1,12 @@
 # from src.BaseModel.detector import FACE_DETECT
 # from src.BaseModel.recognizer import FaceRecognizer
-from src.Data_Processing.face_aligner import FaceAligner
 from imutils.video import WebcamVideoStream
+from face_aligner import FaceAligner
 import face_recognition
 import configparser
 import numpy as np
 from imutils.video import FPS
 import imutils
-import cv2
-import os
-import sys
 import logging
 
 cfg = configparser.ConfigParser()
@@ -17,7 +14,7 @@ logging.basicConfig(format='%(asctime)s %(levelname)-8s %(message)s',
                     level=logging.INFO, datefmt='%Y-%m-%d %H:%M:%S')
 
 
-class CameraURL(FACE_DETECT):
+class CameraURL(object):
 
     def __init__(self):
         camera_url = self.cfg.getint('DEFAULT', 'camera_url')

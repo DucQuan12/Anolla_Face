@@ -15,6 +15,7 @@ class Search(object):
 
     def _index(self, feature):
         pass
+
     def search_feature(self, feature_base64, object_image, _search=True):
         query_list = []
         for i in object_image:

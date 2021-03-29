@@ -35,7 +35,6 @@ class Face_id(object):
             start = time.time()
             logging.warning("Run Camera Url")
             list_object = CameraURL.run()
-            
 
         else:
             logging.info("App no activate")

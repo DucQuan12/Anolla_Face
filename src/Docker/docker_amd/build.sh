@@ -1,1 +1,2 @@
-sudo docker pull elasticsearch:7.11.2
+#!/bin/bash
+sudo docker pull elasticsearch:7.9.0
