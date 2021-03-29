@@ -1,4 +1,7 @@
-#!/bin/bash/
-
-git clone https://github.com/deepinsight/insightface
-mv ./insightface/detection/RetinaFace/ ./
+#!/bin/bash/:wq
+git clone https://github.com/clancylian/retinaface.git
+cd ./retinaface
+mkdir build
+cd build
+cmake ../
+make

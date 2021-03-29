@@ -1,7 +1,6 @@
-from src.BaseModel.detector import FACE_DETECT
-from src.BaseModel.recognizer import FaceRecognizer
+# from src.BaseModel.detector import FACE_DETECT
+# from src.BaseModel.recognizer import FaceRecognizer
 from src.Data_Processing.face_aligner import FaceAligner
-from tensorflow.python.keras.backend import set_session
 from imutils.video import WebcamVideoStream
 import face_recognition
 import configparser
@@ -27,6 +26,7 @@ class CameraURL(FACE_DETECT):
         frame_count = self.cfg.getint('PARAMETER', 'frame_count')
         frame_skip = self.cfg.getint('PARAMETER', 'frame_skip')
         number_skip = self.cfg.getint('PARAMETER', 'number_skip')
+        self.list_image = 0
 
     def face_detect(self):
         logging.warning("USE CAMERA:{}".format(self.camera_url))
@@ -60,7 +60,7 @@ class CameraURL(FACE_DETECT):
                         try:
                             aligned_face = FaceAligner.align(frame, bb_og, align_padding)
                             list_face.append(aligned_face)
-                            if len(list_face) ==:
+                            if len(list_face) == self.number_skip:
                                 list_face = []
                         except:
                             logging.error("None Image In List")
