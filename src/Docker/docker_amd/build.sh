@@ -1,1 +1,2 @@
-docker pull docker.elastic.co/elasticsearch/elasticsearch:7.11.2-amd64
+#!/bin/bash
+sudo docker pull elasticsearch:7.9.0

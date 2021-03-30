@@ -9,9 +9,7 @@ class FaceAligner(object):
         predictor_path = predictor_path
         if os.path.isfile(predictor_path):
             pass
-
         predictor = dlib.shape_predictor(predictor_path)
-
         padding = 45
         desiredFaceWidth = 224 + padding * 2
         fa = FaceAligner(predictor, desiredFaceWidth=self.desiredFaceWidth)
