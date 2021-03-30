@@ -1,4 +1,4 @@
 #!/bin/bash
-cd ./src/BaseModel/FaceDetect/
-sh ./src/BaseModel/FaceDetect/build.sh 
-#sh ./src/BaseModel/FaceVerify/build.sh
+git clone https://github.com/NVIDIA-AI-IOT/torch2trt.git
+cd torch2trt
+python setup.py install
