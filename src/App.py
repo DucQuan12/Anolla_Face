@@ -1,6 +1,6 @@
-from Faceid import Face_id
+from Faceid import FaceApp
 
 
 class App(object):
-    app = Face_id()
+    app = FaceApp()
     app.run()

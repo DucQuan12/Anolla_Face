@@ -1,70 +1,24 @@
 #!/bin/bash/
-curl -X PUT http://localhost:9200/mtct_person?pretty -H 'Content-Type: application/json' -d' {
-        "mappings": {
-                "properties": {
-                        "fullname": {
-                                "type": "text"
-                        },
-			"user_id": {
-				"type": "integer"
-			},
-                        "username": {
-                                "type": "text"
-                        },
-                        "email": {
-                                "type": "text",
-                                "analyzer": "keyword"
-                        },
-			"role_id": {
-				"type": "integer"
-			},
-                        "author": {
-                                "type": "text"
-                        },
-			"password_hash": {
-				"type": "text"
-			},	
-                        "timestamp": {
-                                "type": "date",
-                                "format": "yyyy-MM-dd"
-                        },
-			"confirm": {
-				"type": "boolean"
-			
-			}
-                
-                }
-
-        }
-
-}'
-
-curl -X PUT http://localhost:9200/mtct_arcFace?pretty -H 'Content-Type: application/json' -d' {
-	"mappings": {
+curl -X PUT http://localhost:9200/detect_person?pretty -H 'Content-Type: application/json' -d' {
+        "mappings": {  
 		"properties": {
-			"user_id": {
-				"type": "integer"
-			},
-			"face_vector": {
+			"face_feature": {
 				"type": "dense_vector",
-				"dims": 512
+				"dims": 2048
+			},
+			"user_name": {
+				"type": "text"
 			},
 			"timestamp": {
 				"type": "date",
 				"format": "yyyy-MM-dd"
 			}
-		
-		}	
+		}
 	}
-
 }'
-
-curl -X PUT http://localhost:9200/mtct_retinaface?pretty -H 'Content-Type: application/json' -d' {
+curl -X PUT http://localhost:9200/detect_face?pretty -H 'Content-Type: application/json' -d' {
         "mappings": {
-                "properties": {
-			"user_id": {
-				"type": "integer"
-			},
+		"properties": {
 			"path_image": {
 				"type": "text"	
 			},
@@ -72,7 +26,6 @@ curl -X PUT http://localhost:9200/mtct_retinaface?pretty -H 'Content-Type: appli
 				"type": "date",
 				"format": "yyyy-MM-dd"
 			}
-
                 }
         }
 

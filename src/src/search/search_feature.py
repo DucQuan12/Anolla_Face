@@ -12,9 +12,9 @@ logging.basicConfig()
 class Search(object):
     def __init__(self, host, port):
         es = self.Elasticsearch([{'host': 'localhost', 'port': '9200'}])
-        self.host = self.host
-        self.port = self.port
-        self.list_index = []
+        host = self.host
+        port = self.port
+        list_index = []
 
     def _index(self, name_index):
         for index in self.es.indices.get('*'):
@@ -79,11 +79,14 @@ class Search(object):
                 }
             }
         if _search is True:
-            query = await es.search(index='person', query=query)
+            query = await self.es.search(index='person', query=query)
             query.sorted()
             list_query.append(query[0])
         else:
             loop = asyncio.get_event_loop()
             loop.run_until_complete()
+
+    def __str__(self):
+        return self.__class__.__name__
 
 # async wait
