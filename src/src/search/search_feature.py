@@ -11,15 +11,15 @@ logging.basicConfig()
 
 class Search(object):
     def __init__(self, host, port):
-        self.es = Elasticsearch([{'host': 'localhost', 'port': '9200'}])
-        self.host = host
-        self.port = port
-        self.list_index = []
+        self._es = Elasticsearch([{'host': 'localhost', 'port': '9200'}])
+        self._host = host
+        self._port = port
+        self._list_index = []
 
     def _index(self, name_index):
-        for index in self.es.indices.get('*'):
-            self.list_index.append(index)
-        return self.list_index
+        for index in self._es.indices.get('*'):
+            self._list_index.append(index)
+        return self._list_index
 
     def _update(self, query_update, embedded_feature):
         user_id = query_update.get('user_id')
@@ -54,7 +54,7 @@ class Search(object):
                 }
             }
             if _search is True:
-                query = self.es.search(index="person", query=query)
+                query = self._es.search(index="person", query=query)
                 query.sorted()
                 query_list.append(query[0])
             else:
@@ -79,9 +79,9 @@ class Search(object):
                 }
             }
         if _search is True:
-            query = await self.es.search(index='person', query=query)
-            query.sorted()
-            list_query.append(query[0])
+            results = await self._es.search(index='person', query=query)
+            results.sorted()
+            list_query.append(results[0])
         else:
             loop = asyncio.get_event_loop()
             loop.run_until_complete()
