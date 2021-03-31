@@ -23,7 +23,7 @@ class Listener(server_pb2_grpc.FaceServiceServicer):
         if self.counter > 10000:
             self.last_time = time.time()
             self.counter = 0
-        return server_pb2.Pong(count=request.count + 1)
+        return server_pb2.Pong(count=request.count)
 
 def serve():
     server = grpc.serve(futures.ThreadPoolExecutor(max_workers=2))

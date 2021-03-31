@@ -3,9 +3,9 @@ from __future__ import unicode_literals
 # from .src.BaseModel.FaceDetect.detector import FACE_DETECT
 # from .src.BaseModel.FaceVerify.recognizer import FaceRecognizer
 from .src.search.search_feature import Search
+from .grpc.grpc import Listener
 from cfg import Config
 from .grpc import grpc
-from utils.camera_url import CameraURL
 import threading
 import logging
 import time
@@ -18,12 +18,13 @@ cfg = Config.config()
 
 class FaceApp(object):
     def __init__(self):
-        __model_url = self.cfg.get('MODEL', 'model_url')
-        __index = self.Search.list_index()
+        self.__model_url = cfg.get('MODEL', 'model_url')
+        self.__index = Search.list_index()
 
     def __lience(self):
         return False
-
+    def serve(self):
+        pass
     def __search_feature(self, common=True):
         # self.feeature = model.predict()
         top_final = Search.search_feature()
@@ -37,7 +38,6 @@ class FaceApp(object):
         if self.lience() is True:
             start = time.time()
             logging.warning("Run Camera Url")
-            list_object = CameraURL.run()
             logging.info("list index in elasticsearch: {}".format(self.index))
 
         else:

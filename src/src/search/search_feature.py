@@ -11,10 +11,10 @@ logging.basicConfig()
 
 class Search(object):
     def __init__(self, host, port):
-        es = self.Elasticsearch([{'host': 'localhost', 'port': '9200'}])
-        host = self.host
-        port = self.port
-        list_index = []
+        self.es = Elasticsearch([{'host': 'localhost', 'port': '9200'}])
+        self.host = host
+        self.port = port
+        self.list_index = []
 
     def _index(self, name_index):
         for index in self.es.indices.get('*'):
