@@ -47,7 +47,7 @@ curl -X PUT http://localhost:9200/mtct_arcFace?pretty -H 'Content-Type: applicat
 			},
 			"face_vector": {
 				"type": "dense_vector",
-				"dims": 512
+				"dims": 2048
 			},
 			"timestamp": {
 				"type": "date",
