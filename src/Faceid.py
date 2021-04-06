@@ -33,11 +33,11 @@ class FaceApp(object):
         private_key = self.__util.read_key(self.__key_server)
         certificate = self.__util.read_key(self.__key_crt)
 
-        server_certifical = grpc.ssl_server_credentials(((private_key, certificate, ), ))
+        server_certifical = grpc.ssl_server_credentials(((private_key, certificate,),))
 
         server = grpc.serve(futures.ThreadPoolExecutor(max_workers=2))
         server_pb2_grpc.add_FaceServiceServicer_to_server(server)
-        server.add_insecure_port("[0.0.0.0]:"+self.__port)
+        server.add_insecure_port("[0.0.0.0]:" + self.__port)
         server.start()
 
         try:
