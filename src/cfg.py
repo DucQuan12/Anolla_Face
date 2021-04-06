@@ -5,4 +5,5 @@ class Config(object):
     @staticmethod
     def config():
         cfg = configparser.ConfigParser()
-        return cfg.read("config.ini")
+        cfg.read('config.ini')
+        return cfg

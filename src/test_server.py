@@ -11,7 +11,10 @@ import numpy as np
 from cfg import Config
 
 cfg = Config.config()
-print(1)
+
+from utils.utils import util
+
+cfg = Config.config()
 
 
 class ShowVideoStream(object):
@@ -79,14 +82,23 @@ def serve():
     server.start()
 
     print('===== server start =====')
+    _key_crt = cfg.get('DEFAULT', 'key_crt')
+    _key_server = cfg.get('DEFAULT', 'key_server')
 
+    private_key = util.read_key(_key_server)
+    certificate = util.read_key(_key_crt)
+    server_certifical = grpc.ssl_server_credentials(((private_key, certificate,),))
+
+    server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
+    server_pb2_grpc.add_FaceServiceServicer_to_server(Greeter(), server)
+    server.add_insecure_port('[::]:50070')
+    server.start()
     try:
         while True:
             time.sleep(0)
 
     except KeyboardInterrupt:
         server.stop(0)
-
 
 # ============================================================
 # main
