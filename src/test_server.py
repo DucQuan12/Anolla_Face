@@ -28,7 +28,7 @@ class ShowVideoStream(object):
                 if k == 27:
                     break
 
-class Greeter(server_pb2_grpc.MainServerServicer):
+class Greeter(server_pb2_grpc.FaceServiceServicer):
 
 	#==========
 	def __init__(self):
@@ -72,7 +72,7 @@ show = ShowVideoStream()
 def serve():
 
 	server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
-	server_pb2_grpc.add_MainServerServicer_to_server(Greeter(), server)
+	server_pb2_grpc.add_FaceServiceServicer_to_server(Greeter(), server)
 	server.add_insecure_port('[::]:50070')
 	server.start()
 
