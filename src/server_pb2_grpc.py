@@ -14,17 +14,17 @@ class FaceServiceStub(object):
         Args:
             channel: A grpc.Channel.
         """
-        self.ping = channel.unary_unary(
-                '/FaceService/ping',
-                request_serializer=server__pb2.Ping.SerializeToString,
-                response_deserializer=server__pb2.Pong.FromString,
+        self.getStream = channel.stream_stream(
+                '/FaceService/getStream',
+                request_serializer=server__pb2.Request.SerializeToString,
+                response_deserializer=server__pb2.Reply.FromString,
                 )
 
 
 class FaceServiceServicer(object):
     """Missing associated documentation comment in .proto file."""
 
-    def ping(self, request, context):
+    def getStream(self, request_iterator, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -33,10 +33,10 @@ class FaceServiceServicer(object):
 
 def add_FaceServiceServicer_to_server(servicer, server):
     rpc_method_handlers = {
-            'ping': grpc.unary_unary_rpc_method_handler(
-                    servicer.ping,
-                    request_deserializer=server__pb2.Ping.FromString,
-                    response_serializer=server__pb2.Pong.SerializeToString,
+            'getStream': grpc.stream_stream_rpc_method_handler(
+                    servicer.getStream,
+                    request_deserializer=server__pb2.Request.FromString,
+                    response_serializer=server__pb2.Reply.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -49,7 +49,7 @@ class FaceService(object):
     """Missing associated documentation comment in .proto file."""
 
     @staticmethod
-    def ping(request,
+    def getStream(request_iterator,
             target,
             options=(),
             channel_credentials=None,
@@ -59,8 +59,8 @@ class FaceService(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/FaceService/ping',
-            server__pb2.Ping.SerializeToString,
-            server__pb2.Pong.FromString,
+        return grpc.experimental.stream_stream(request_iterator, target, '/FaceService/getStream',
+            server__pb2.Request.SerializeToString,
+            server__pb2.Reply.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

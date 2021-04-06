@@ -19,24 +19,24 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n\x0cserver.proto\"\x15\n\x04Ping\x12\r\n\x05\x63ount\x18\x01 \x01(\x05\"\x15\n\x04Pong\x12\r\n\x05\x63ount\x18\x01 \x01(\x05\x32%\n\x0b\x46\x61\x63\x65Service\x12\x16\n\x04ping\x12\x05.Ping\x1a\x05.Pong\"\x00\x62\x06proto3'
+  serialized_pb=b'\n\x0cserver.proto\"\x18\n\x07Request\x12\r\n\x05\x64\x61tas\x18\x01 \x01(\x0c\"\x13\n\x05Reply\x12\n\n\x02id\x18\x01 \x01(\x05\x32\x32\n\x0b\x46\x61\x63\x65Service\x12#\n\tgetStream\x12\x08.Request\x1a\x06.Reply\"\x00(\x01\x30\x01\x62\x06proto3'
 )
 
 
 
 
-_PING = _descriptor.Descriptor(
-  name='Ping',
-  full_name='Ping',
+_REQUEST = _descriptor.Descriptor(
+  name='Request',
+  full_name='Request',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   create_key=_descriptor._internal_create_key,
   fields=[
     _descriptor.FieldDescriptor(
-      name='count', full_name='Ping.count', index=0,
-      number=1, type=5, cpp_type=1, label=1,
-      has_default_value=False, default_value=0,
+      name='datas', full_name='Request.datas', index=0,
+      number=1, type=12, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"",
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
@@ -53,20 +53,20 @@ _PING = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=16,
-  serialized_end=37,
+  serialized_end=40,
 )
 
 
-_PONG = _descriptor.Descriptor(
-  name='Pong',
-  full_name='Pong',
+_REPLY = _descriptor.Descriptor(
+  name='Reply',
+  full_name='Reply',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   create_key=_descriptor._internal_create_key,
   fields=[
     _descriptor.FieldDescriptor(
-      name='count', full_name='Pong.count', index=0,
+      name='id', full_name='Reply.id', index=0,
       number=1, type=5, cpp_type=1, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
@@ -84,27 +84,27 @@ _PONG = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=39,
-  serialized_end=60,
+  serialized_start=42,
+  serialized_end=61,
 )
 
-DESCRIPTOR.message_types_by_name['Ping'] = _PING
-DESCRIPTOR.message_types_by_name['Pong'] = _PONG
+DESCRIPTOR.message_types_by_name['Request'] = _REQUEST
+DESCRIPTOR.message_types_by_name['Reply'] = _REPLY
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
-Ping = _reflection.GeneratedProtocolMessageType('Ping', (_message.Message,), {
-  'DESCRIPTOR' : _PING,
+Request = _reflection.GeneratedProtocolMessageType('Request', (_message.Message,), {
+  'DESCRIPTOR' : _REQUEST,
   '__module__' : 'server_pb2'
-  # @@protoc_insertion_point(class_scope:Ping)
+  # @@protoc_insertion_point(class_scope:Request)
   })
-_sym_db.RegisterMessage(Ping)
+_sym_db.RegisterMessage(Request)
 
-Pong = _reflection.GeneratedProtocolMessageType('Pong', (_message.Message,), {
-  'DESCRIPTOR' : _PONG,
+Reply = _reflection.GeneratedProtocolMessageType('Reply', (_message.Message,), {
+  'DESCRIPTOR' : _REPLY,
   '__module__' : 'server_pb2'
-  # @@protoc_insertion_point(class_scope:Pong)
+  # @@protoc_insertion_point(class_scope:Reply)
   })
-_sym_db.RegisterMessage(Pong)
+_sym_db.RegisterMessage(Reply)
 
 
 
@@ -115,16 +115,16 @@ _FACESERVICE = _descriptor.ServiceDescriptor(
   index=0,
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_start=62,
-  serialized_end=99,
+  serialized_start=63,
+  serialized_end=113,
   methods=[
   _descriptor.MethodDescriptor(
-    name='ping',
-    full_name='FaceService.ping',
+    name='getStream',
+    full_name='FaceService.getStream',
     index=0,
     containing_service=None,
-    input_type=_PING,
-    output_type=_PONG,
+    input_type=_REQUEST,
+    output_type=_REPLY,
     serialized_options=None,
     create_key=_descriptor._internal_create_key,
   ),
