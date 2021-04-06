@@ -2,6 +2,7 @@ import cfg
 import configparser
 
 class Config(object):
-    def config(self):
+    @staticmethod
+    def config():
         cfg = configparser.ConfigParser()
         return cfg.read("config.ini")

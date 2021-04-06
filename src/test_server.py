@@ -8,6 +8,10 @@ import server_pb2
 import server_pb2_grpc
 import base64
 import numpy as np
+from cfg import Config
+
+cfg = Config.config()
+print(1)
 
 
 class ShowVideoStream(object):
@@ -28,74 +32,70 @@ class ShowVideoStream(object):
                 if k == 27:
                     break
 
+
 class Greeter(server_pb2_grpc.FaceServiceServicer):
 
-	#==========
-	def __init__(self):
-		pass
+    # ==========
+    def __init__(self):
+        pass
 
-	#==========
-	def getStream(self, request_iterator, context):
+    # ==========
+    def getStream(self, request_iterator, context):
+        timer = 0
 
-		timer = 0
+        for req in request_iterator:
+            print('process time = ' + str(time.clock() - timer))
+            timer = time.clock()
 
-		for req in request_iterator:
+            # decode from base64
+            b64d = base64.b64decode(req.datas)
+            # print("base64 decode size : ", sys.getsizeof(b64d))
 
-			print('process time = ' + str(time.clock() - timer))
-			timer = time.clock()
+            # base64 buffer to uint8
+            dBuf = np.frombuffer(b64d, dtype=np.uint8)
+            # print("buffer size : ", sys.getsizeof(dBuf))
 
-			# decode from base64
-			b64d = base64.b64decode(req.datas)
-			#print("base64 decode size : ", sys.getsizeof(b64d))
+            # decode to cv2
+            dst = cv2.imdecode(dBuf, cv2.IMREAD_COLOR)
+            # print("dst size : ", sys.getsizeof(dst))
 
-			# base64 buffer to uint8
-			dBuf = np.frombuffer(b64d, dtype = np.uint8)
-			#print("buffer size : ", sys.getsizeof(dBuf))
+            # set pixels
+            show.set(dst)
 
-			# decode to cv2
-			dst = cv2.imdecode(dBuf, cv2.IMREAD_COLOR)
-			#print("dst size : ", sys.getsizeof(dst))
+            # success
+            yield server_pb2.Reply(reply=1)
 
-			# set pixels
-			show.set(dst)
-
-			# success
-			yield server_pb2.Reply(reply = 1)
 
 show = ShowVideoStream()
 
 
-
-#============================================================
+# ============================================================
 # functions
-#============================================================
+# ============================================================
 def serve():
+    server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
+    server_pb2_grpc.add_FaceServiceServicer_to_server(Greeter(), server)
+    server.add_insecure_port('[::]:50070')
+    server.start()
 
-	server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
-	server_pb2_grpc.add_FaceServiceServicer_to_server(Greeter(), server)
-	server.add_insecure_port('[::]:50070')
-	server.start()
+    print('===== server start =====')
 
-	print('===== server start =====')
+    try:
+        while True:
+            time.sleep(0)
 
-	try:
-		while True:
-			time.sleep(0)
-
-	except KeyboardInterrupt:
-		server.stop(0)
-
+    except KeyboardInterrupt:
+        server.stop(0)
 
 
-#============================================================
+# ============================================================
 # main
-#============================================================
+# ============================================================
 if __name__ == '__main__':
-	show.start()
-	serve()
+    show.start()
+    serve()
 
-
-#============================================================
+# ============================================================
 # after the App exit
-#============================================================
+# ============================================================
 cv2.destroyAllWindows()
