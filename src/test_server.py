@@ -66,7 +66,7 @@ class Greeter(server_pb2_grpc.FaceServiceServicer):
             show.set(dst)
 
             # success
-            yield server_pb2.Reply(reply=1)
+            yield server_pb2.Reply(id=1)
 
 
 show = ShowVideoStream()
