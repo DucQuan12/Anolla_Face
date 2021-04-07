@@ -10,7 +10,7 @@ from utils.utils import util
 import server_pb2_grpc
 import server_pb2
 from src.Base.search_feature import Search
-from grpc_client import ShowVideoStream, Greeter
+from grpc_server import ShowVideoStream, Greeter
 from concurrent import futures
 from NeatLogger import Log
 
@@ -28,7 +28,6 @@ class FaceApp(object):
         self.__util = util()
         self.__port = cfg.get('DEFAULT', 'port')
         self._greeter = Greeter()
-        self._show = ShowVideoStream()
 
     def __lience(self):
         return False
@@ -62,7 +61,6 @@ class FaceApp(object):
 
     def run(self):
         logger.info("Start App")
-        self._show.start()
         self.serve()
         # # if self.lience() is True:
         # #     start = time.time()

@@ -35,11 +35,7 @@ class ShowVideoStream(object):
 
 class Greeter(server_pb2_grpc.FaceServiceServicer):
     def __init__(self):
-        pass
-
-    def activate(self):
-        show = ShowVideoStream()
-        show.start()
+        self.show = ShowVideoStream()
 
     def getStream(self, request_iterator, context):
         timer = 0
@@ -51,5 +47,6 @@ class Greeter(server_pb2_grpc.FaceServiceServicer):
             d_buf = np.frombuffer(b64d, dtype=np.uint8)
             logger.info(d_buf)
             dst = cv2.imdecode(d_buf, cv2.IMREAD_COLOR)
+            self.show.start()
             self.show.set(dst)
             yield server_pb2.Reply(id=1)
