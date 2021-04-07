@@ -9,9 +9,6 @@ import server_pb2_grpc
 import base64
 import numpy as np
 from cfg import Config
-
-cfg = Config.config()
-
 from utils.utils import util
 
 cfg = Config.config()
@@ -76,11 +73,6 @@ show = ShowVideoStream()
 # functions
 # ============================================================
 def serve():
-    server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
-    server_pb2_grpc.add_FaceServiceServicer_to_server(Greeter(), server)
-    server.add_insecure_port('[::]:50070')
-    server.start()
-
     print('===== server start =====')
     _key_crt = cfg.get('DEFAULT', 'key_crt')
     _key_server = cfg.get('DEFAULT', 'key_server')
@@ -88,7 +80,7 @@ def serve():
     private_key = util.read_key(_key_server)
     certificate = util.read_key(_key_crt)
     server_certifical = grpc.ssl_server_credentials(((private_key, certificate,),))
-
+    print(server_certifical)
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
     server_pb2_grpc.add_FaceServiceServicer_to_server(Greeter(), server)
     server.add_insecure_port('[::]:50070')
