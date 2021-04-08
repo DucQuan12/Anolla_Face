@@ -25,7 +25,6 @@ class FaceApp(object):
         self.__key_server = cfg.get('DEFAULT', 'key_server')
         self.__util = util()
         self.__port = cfg.get('DEFAULT', 'port')
-        self._greeter = Greeter()
 
     def lience(self):
         return True
@@ -39,7 +38,7 @@ class FaceApp(object):
         certificate = util.read_key(_key_crt)
         server_certifical = grpc.ssl_server_credentials(((private_key, certificate,),))
         server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
-        server_pb2_grpc.add_FaceServiceServicer_to_server(self._greeter, server)
+        server_pb2_grpc.add_FaceServiceServicer_to_server(Greeter, server)
         server.add_insecure_port('[::]:50070')
         server.start()
         try:
@@ -55,13 +54,12 @@ class FaceApp(object):
         else:
             return top_final[0]
 
-    def run(self):
-        logger.info("Start App")
-        try:
-            self.lience()
-            self.serve()
-        except:
-            logger.error("No Activate")
+    @serve
+    def run(self, func):
+        if self.lience is True:
+            self.func
+        else:
+            logger.error("App no active")
 
     def __str__(self):
         return self.__class__.__name__
