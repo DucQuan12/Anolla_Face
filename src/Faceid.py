@@ -48,24 +48,22 @@ class FaceApp(object):
         except KeyboardInterrupt:
             server.stop(0)
 
-    # def __search_feature(self, common=True):
-    #     # self.feeature = model.predict()
-    #     top_final = Search.search_feature()
-    #     if common:
-    #         return top_final
-    #     else:
-    #         return top_final[0]
+    def _search_feature(self, common=True):
+        top_final = Search.search_feature()
+        if common:
+            return top_final
+        else:
+            return top_final[0]
 
     def run(self):
         logger.info("Start App")
         self.serve()
-        # # if self.lience() is True:
-        # #     start = time.time()
-        # #     logging.warning("Run Camera Url")
-        # #     # logging.info("list index in elasticsearch: {}".format(self.index))
-        #
-        # else:
-        #     logging.info("App no activate")
+        if self.lience() is True:
+            start = time.time()
+            logging.warning("Run Camera url")
+            logging.info("list index in elasticsearch: {}".format(self.index))
+        else:
+            logging.info("App no activate")
 
     def __str__(self):
         return self.__class__.__name__
