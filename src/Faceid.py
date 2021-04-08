@@ -21,10 +21,8 @@ logger = log.get_logger()
 
 class FaceApp(object):
     def __init__(self):
-        # self.__model_url = cfg.get('MODEL', 'model_url')
         self.__key_crt = cfg.get('DEFAULT', 'key_crt')
         self.__key_server = cfg.get('DEFAULT', 'key_server')
-        # self.__index = Search.list_index()
         self.__util = util()
         self.__port = cfg.get('DEFAULT', 'port')
         self._greeter = Greeter()
@@ -44,7 +42,6 @@ class FaceApp(object):
         server_pb2_grpc.add_FaceServiceServicer_to_server(self._greeter, server)
         server.add_insecure_port('[::]:50070')
         server.start()
-
         try:
             while True:
                 time.sleep(0)

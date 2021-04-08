@@ -41,7 +41,6 @@ class Greeter(server_pb2_grpc.FaceServiceServicer):
         timer = 0
 
         for req in request_iterator:
-            #print('process time = ' + str(time.clock() - timer))
             timer = time.clock()
             b64d = base64.b64decode(req.datas)
             d_buf = np.frombuffer(b64d, dtype=np.uint8)
