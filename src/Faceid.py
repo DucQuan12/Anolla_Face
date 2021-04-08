@@ -27,9 +27,6 @@ class FaceApp(object):
         self.__port = cfg.get('DEFAULT', 'port')
         self._greeter = Greeter()
 
-    def __lience(self):
-        return False
-
     def serve(self):
         logger.info('===== server start =====')
         _key_crt = cfg.get('DEFAULT', 'key_crt')
@@ -58,12 +55,6 @@ class FaceApp(object):
     def run(self):
         logger.info("Start App")
         self.serve()
-        if self.lience() is True:
-            start = time.time()
-            logging.warning("Run Camera url")
-            logging.info("list index in elasticsearch: {}".format(self.index))
-        else:
-            logging.info("App no activate")
 
     def __str__(self):
         return self.__class__.__name__
