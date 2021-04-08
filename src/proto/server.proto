@@ -1,0 +1,12 @@
+syntax = "proto3";
+service FaceService {
+    rpc getStream (stream Request) returns (stream Reply) {}
+}
+
+message Request {
+    bytes datas = 1;
+}
+
+message Reply {
+    int32 id = 1;
+}
