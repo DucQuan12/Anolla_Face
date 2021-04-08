@@ -27,6 +27,9 @@ class FaceApp(object):
         self.__port = cfg.get('DEFAULT', 'port')
         self._greeter = Greeter()
 
+    def lience(self):
+        return True
+
     def serve(self):
         logger.info('===== server start =====')
         _key_crt = cfg.get('DEFAULT', 'key_crt')
@@ -54,7 +57,11 @@ class FaceApp(object):
 
     def run(self):
         logger.info("Start App")
-        self.serve()
+        try:
+            self.lience()
+            self.serve()
+        except:
+            logger.error("No Activate")
 
     def __str__(self):
         return self.__class__.__name__
