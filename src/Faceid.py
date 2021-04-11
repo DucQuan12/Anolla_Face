@@ -29,24 +29,6 @@ class FaceApp(object):
     def lience(self):
         return True
 
-    def serve(self):
-        logger.info('===== server start =====')
-        _key_crt = cfg.get('DEFAULT', 'key_crt')
-        _key_server = cfg.get('DEFAULT', 'key_server')
-
-        private_key = util.read_key(_key_server)
-        certificate = util.read_key(_key_crt)
-        server_certifical = grpc.ssl_server_credentials(((private_key, certificate,),))
-        server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
-        server_pb2_grpc.add_FaceServiceServicer_to_server(Greeter, server)
-        server.add_insecure_port('[::]:50070')
-        server.start()
-        try:
-            while True:
-                time.sleep(0)
-        except KeyboardInterrupt:
-            server.stop(0)
-
     def _search_feature(self, common=True):
         top_final = Search.search_feature()
         if common:
@@ -54,10 +36,24 @@ class FaceApp(object):
         else:
             return top_final[0]
 
-    @serve
-    def run(self, func):
-        if self.lience is True:
-            self.func
+    def __call__(self, *args, **kwargs):
+        if self.lience() is True:
+            logger.info('===== server start =====')
+            _key_crt = cfg.get('DEFAULT', 'key_crt')
+            _key_server = cfg.get('DEFAULT', 'key_server')
+
+            private_key = util.read_key(_key_server)
+            certificate = util.read_key(_key_crt)
+            server_certifical = grpc.ssl_server_credentials(((private_key, certificate,),))
+            server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
+            server_pb2_grpc.add_FaceServiceServicer_to_server(Greeter, server)
+            server.add_insecure_port('[::]:50070')
+            server.start()
+            try:
+                while True:
+                    time.sleep(0)
+            except KeyboardInterrupt:
+                server.stop(0)
         else:
             logger.error("App no active")
 
