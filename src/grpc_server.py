@@ -13,7 +13,6 @@ cfg = Config.config()
 log = Log()
 logger = log.get_logger()
 
-
 class ShowVideoStream(object):
     img = None
     thread = futures.ThreadPoolExecutor(max_workers=1)
